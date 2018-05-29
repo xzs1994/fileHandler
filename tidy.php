@@ -9,11 +9,25 @@
 if ('cli' !== PHP_SAPI) {
     exit('请在cli模式下运行脚本');
 }
-
-$origin = 'C:\Users\10481\Desktop\1234';
-$target = 'D:/百度网盘下载/壁纸/beautiful';
+//$args = getArgv();
+$origin = 'E:/github/fulibuduo/-PHP-/img/xgmn/';
+$target = 'E:/github/fulibuduo/-PHP-/img/ceshi/';
 //print_r($argv);die;
 sortFilesByExt($origin, $target);
+
+/**
+ * 获取argv参数
+ */
+function getArgv()
+{
+    array_shift($argv);
+    if (empty($argv)) {
+        return 0;
+    }
+
+
+    return $argv;
+}
 
 /**
  * 将多个目录中的文件放到一个目录中，并放到对应扩展名的文件夹中
@@ -25,13 +39,14 @@ function sortFilesByExt($originPath, $targetPath = '')
 {
     if (is_dir($originPath)) {
         $scans = scandir($originPath);
+//        print_r($scans);die;
         foreach ($scans  as $scan) {
             if ($scan == '.' || $scan == '..') {
                 continue;
             }
             $path = $originPath . '/' . $scan;
             if (is_dir($path)) {
-                sortFilesByExt($path);//如果是目录，递归
+                sortFilesByExt($path, $targetPath);//如果是目录，递归
             } else {
                 $targetPath = $targetPath ?: $originPath;//目标路径如果未设置，则使用原路径
                 if (!is_dir($targetPath)) {
@@ -51,7 +66,7 @@ function sortFilesByExt($originPath, $targetPath = '')
                 }
             }
         }
-        rmdir($originPath);
+//        rmdir($originPath);
     } else {
         exit('未找到对应的目录');
     }
