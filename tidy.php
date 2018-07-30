@@ -10,8 +10,8 @@ if ('cli' !== PHP_SAPI) {
     exit('请在cli模式下运行脚本');
 }
 //$args = getArgv();
-$origin = 'E:/github/fulibuduo/-PHP-/img/xgmn/';
-$target = 'E:/github/fulibuduo/-PHP-/img/ceshi/';
+$origin = 'D:\百度网盘下载\wbst';
+$target = 'D:\百度网盘下载\mt';
 //print_r($argv);die;
 sortFilesByExt($origin, $target);
 
